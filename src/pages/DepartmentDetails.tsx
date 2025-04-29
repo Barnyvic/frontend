@@ -95,7 +95,15 @@ export default function DepartmentDetails() {
     onCompleted: () => refetchSubDepartments(),
   });
 
-  if (loading) return <div className="text-center py-8">Loading...</div>;
+  if (loading)
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mb-4"></div>
+          <p className="text-gray-600">Loading department details...</p>
+        </div>
+      </div>
+    );
   if (error)
     return (
       <div className="text-center py-8 text-red-500">
@@ -270,6 +278,7 @@ export default function DepartmentDetails() {
                               onSubmit={handleUpdateSubDepartment}
                               initialData={subDept}
                               isLoading={updateSubLoading}
+                              formType="subDepartment"
                               submitButtonText="Update Sub-department"
                             />
                             <button
