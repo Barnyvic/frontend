@@ -56,6 +56,7 @@ export default function DepartmentDetails() {
       onCompleted: () => {
         setIsEditing(false);
         toast.success("Department updated successfully!");
+        window.location.reload();
       },
       onError: (error) => {
         toast.error("Failed to update department: " + error.message);
@@ -70,6 +71,7 @@ export default function DepartmentDetails() {
         setEditingSubDepartment(null);
         refetchSubDepartments();
         toast.success("Sub-department updated successfully!");
+        window.location.reload();
       },
       onError: (error) => {
         toast.error("Failed to update sub-department: " + error.message);
@@ -83,6 +85,7 @@ export default function DepartmentDetails() {
       onCompleted: () => {
         refetchSubDepartments();
         toast.success("Sub-department created successfully!");
+        window.location.reload();
       },
       onError: (error) => {
         console.error("Error creating sub-department:", error);
@@ -257,6 +260,7 @@ export default function DepartmentDetails() {
                       initialData={department}
                       isLoading={updateLoading}
                       submitButtonText="Update Department"
+                      isEditing={true}
                     />
                     <button
                       onClick={() => setIsEditing(false)}

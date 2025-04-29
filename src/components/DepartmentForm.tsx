@@ -12,6 +12,7 @@ interface DepartmentFormProps {
   };
   formType?: "department" | "subDepartment";
   submitButtonText?: string;
+  isEditing?: boolean;
 }
 
 export default function DepartmentForm({
@@ -20,6 +21,7 @@ export default function DepartmentForm({
   initialData,
   formType = "department",
   submitButtonText,
+  isEditing = false,
 }: DepartmentFormProps) {
   const [name, setName] = useState(initialData?.name || "");
   const [subDepartments, setSubDepartments] = useState<string[]>(
@@ -29,7 +31,7 @@ export default function DepartmentForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formType === "subDepartment") {
+    if (formType === "subDepartment" || isEditing) {
       onSubmit({ name });
     } else {
       onSubmit({
@@ -65,7 +67,7 @@ export default function DepartmentForm({
           className="block text-sm font-medium text-gray-300 mb-2"
         >
           {formType === "subDepartment"
-            ? "Sub-Department Name"
+            ? "Sub-department Name"
             : "Department Name"}
         </label>
         <input
@@ -73,18 +75,15 @@ export default function DepartmentForm({
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-          placeholder={
-            formType === "subDepartment"
-              ? "Enter sub-department name"
-              : "Enter department name"
-          }
+          className="block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          placeholder={`Enter ${
+            formType === "subDepartment" ? "sub-department" : "department"
+          } name`}
           required
-          minLength={3}
         />
       </div>
 
-      {formType === "department" && (
+      {formType === "department" && !isEditing && (
         <div>
           <label
             htmlFor="subDepartment"
@@ -106,7 +105,7 @@ export default function DepartmentForm({
               <button
                 type="button"
                 onClick={handleAddSubDepartment}
-                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-500 transition-colors duration-200"
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200"
               >
                 Add
               </button>
@@ -116,7 +115,7 @@ export default function DepartmentForm({
                 {subDepartments.map((subDept, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between bg-gray-700/50 px-3 py-2 rounded-md border border-gray-600"
+                    className="flex items-center justify-between bg-gray-700 px-3 py-2 rounded-md border border-gray-600"
                   >
                     <span className="text-white">{subDept}</span>
                     <button
