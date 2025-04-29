@@ -170,8 +170,8 @@ export default function Departments() {
       </div>
 
       {showCreateForm && (
-        <div className="mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <div className="mb-8 bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700">
+          <h2 className="text-xl font-semibold text-gray-100 mb-4">
             Create New Department
           </h2>
           <DepartmentForm

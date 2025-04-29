@@ -69,7 +69,7 @@ export default function Register() {
                 <input
                   {...register("username")}
                   type="text"
-                  className="block w-full appearance-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 placeholder-gray-400 shadow-sm transition focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 placeholder-gray-400 shadow-sm transition focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-indigo-500 sm:text-sm hover:border-gray-400"
                   placeholder="Enter your username"
                 />
                 {errors.username && (
@@ -91,7 +91,7 @@ export default function Register() {
                 <input
                   {...register("password")}
                   type="password"
-                  className="block w-full appearance-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 placeholder-gray-400 shadow-sm transition focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 placeholder-gray-400 shadow-sm transition focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-indigo-500 sm:text-sm hover:border-gray-400"
                   placeholder="Enter your password"
                 />
                 {errors.password && (
