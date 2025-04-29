@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { Department, DepartmentResponse } from "../types/department";
 import {
   GET_DEPARTMENTS,
   CREATE_DEPARTMENT,
@@ -10,19 +9,21 @@ import {
 import DepartmentForm from "../components/DepartmentForm";
 import toast from "react-hot-toast";
 
-interface DepartmentResponse {
-  departments: {
+interface DepartmentData {
+  id: number;
+  name: string;
+  subDepartments: {
     id: number;
     name: string;
-    subDepartments: {
-      id: number;
-      name: string;
-    }[];
-    createdBy: {
-      username: string;
-    };
-    createdAt: string;
   }[];
+  createdBy: {
+    username: string;
+  };
+  createdAt: string;
+}
+
+interface DepartmentResponse {
+  departments: DepartmentData[];
   total: number;
   totalPages: number;
   currentPage: number;

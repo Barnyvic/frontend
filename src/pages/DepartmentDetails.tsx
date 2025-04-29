@@ -203,8 +203,7 @@ export default function DepartmentDetails() {
     }
   };
 
-  const subDepartments =
-    subDepartmentsData?.getSubDepartments.subDepartments || [];
+  const subDepartments = department.subDepartments;
   const totalPages = subDepartmentsData?.getSubDepartments.totalPages || 0;
   const currentPage = subDepartmentsData?.getSubDepartments.currentPage || 1;
 
