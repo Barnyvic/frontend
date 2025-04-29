@@ -37,8 +37,10 @@ export default function Departments() {
     getDepartments: DepartmentResponse;
   }>(GET_DEPARTMENTS, {
     variables: {
-      page,
-      limit,
+      paginationInput: {
+        page,
+        limit,
+      },
     },
     fetchPolicy: "network-only",
   });

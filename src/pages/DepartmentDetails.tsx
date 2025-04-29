@@ -156,9 +156,8 @@ export default function DepartmentDetails() {
           {
             query: GET_SUB_DEPARTMENTS,
             variables: {
-              page,
-              limit,
               departmentId: parseInt(id!, 10),
+              paginationInput: { page, limit },
             },
           },
         ],

@@ -192,13 +192,9 @@ export function useDepartments(
 
   return {
     departments: data?.getDepartments.departments || [],
-    pagination: data?.getDepartments
-      ? {
-          total: data.getDepartments.total,
-          totalPages: data.getDepartments.totalPages,
-          currentPage: data.getDepartments.currentPage,
-        }
-      : null,
+    total: data?.getDepartments.total || 0,
+    totalPages: data?.getDepartments.totalPages || 0,
+    currentPage: data?.getDepartments.currentPage || 1,
     loading,
     error,
     refetch,

@@ -22,20 +22,20 @@ export const LOGIN_USER = gql`
 
 // Department Queries
 export const GET_DEPARTMENTS = gql`
-  query GetDepartments($page: Int!, $limit: Int!) {
-    getDepartments(paginationInput: { page: $page, limit: $limit }) {
+  query GetDepartments($paginationInput: PaginationInput!) {
+    getDepartments(paginationInput: $paginationInput) {
       departments {
         id
         name
-        createdAt
-        createdBy {
-          id
-          username
-        }
         subDepartments {
           id
           name
         }
+        createdBy {
+          id
+          username
+        }
+        createdAt
       }
       total
       totalPages
@@ -128,7 +128,7 @@ export const DELETE_DEPARTMENT = gql`
 export const CREATE_SUB_DEPARTMENT = gql`
   mutation CreateSubDepartment(
     $departmentId: Int!
-    $createSubDepartmentInput: CreateSubDepartmentInput!
+    $createSubDepartmentInput: SubDepartmentInput!
   ) {
     createSubDepartment(
       departmentId: $departmentId
@@ -136,6 +136,10 @@ export const CREATE_SUB_DEPARTMENT = gql`
     ) {
       id
       name
+      department {
+        id
+        name
+      }
       createdAt
     }
   }

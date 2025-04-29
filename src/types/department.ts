@@ -21,8 +21,8 @@ export interface UpdateDepartmentInput {
 export interface SubDepartment {
   id: number;
   name: string;
-  department: Department;
-  createdAt: string;
+  department?: Department;
+  createdAt?: string;
   updatedAt: string;
 }
 
