@@ -13,7 +13,6 @@ import Departments from "./pages/Departments";
 import DepartmentDetails from "./pages/DepartmentDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -22,29 +21,31 @@ function App() {
       <AuthProvider>
         <Toaster position="top-right" />
         <Router>
-          <div className="min-h-screen bg-gray-900">
+          <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
             <Navbar />
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Departments />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/department/:id"
-                element={
-                  <ProtectedRoute>
-                    <DepartmentDetails />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <div className="w-full px-6 py-8">
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Departments />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/department/:id"
+                  element={
+                    <ProtectedRoute>
+                      <DepartmentDetails />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
           </div>
         </Router>
       </AuthProvider>
