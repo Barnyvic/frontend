@@ -17,6 +17,15 @@ import {
 import DepartmentForm from "../components/DepartmentForm";
 import { toast } from "react-hot-toast";
 
+interface SubDepartmentResponse {
+  getSubDepartments: {
+    subDepartments: SubDepartment[];
+    total: number;
+    totalPages: number;
+    currentPage: number;
+  };
+}
+
 export default function DepartmentDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -34,12 +43,10 @@ export default function DepartmentDetails() {
   );
 
   const { data: subDepartmentsData, refetch: refetchSubDepartments } =
-    useQuery<{
-      getSubDepartments: PaginatedResponse<SubDepartment>;
-    }>(GET_SUB_DEPARTMENTS, {
+    useQuery<SubDepartmentResponse>(GET_SUB_DEPARTMENTS, {
       variables: {
-        paginationInput: { page, limit },
         departmentId: parseInt(id!, 10),
+        paginationInput: { page, limit },
       },
     });
 
@@ -177,12 +184,10 @@ export default function DepartmentDetails() {
     }
   };
 
-  const { items: subDepartments, total } =
-    subDepartmentsData?.getSubDepartments || {
-      items: [],
-      total: 0,
-    };
-  const totalPages = Math.ceil(total / limit);
+  const subDepartments =
+    subDepartmentsData?.getSubDepartments.subDepartments || [];
+  const totalPages = subDepartmentsData?.getSubDepartments.totalPages || 0;
+  const currentPage = subDepartmentsData?.getSubDepartments.currentPage || 1;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -326,6 +331,28 @@ export default function DepartmentDetails() {
             </div>
           </div>
         </div>
+
+        {totalPages > 1 && (
+          <div className="mt-4 flex justify-center space-x-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 disabled:opacity-50 hover:bg-gray-50 transition-colors duration-200"
+            >
+              Previous
+            </button>
+            <span className="px-4 py-2 text-gray-700">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 disabled:opacity-50 hover:bg-gray-50 transition-colors duration-200"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

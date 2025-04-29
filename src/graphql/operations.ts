@@ -71,12 +71,14 @@ export const GET_SUB_DEPARTMENTS = gql`
       departmentId: $departmentId
       paginationInput: $paginationInput
     ) {
-      items {
+      subDepartments {
         id
         name
         createdAt
       }
       total
+      totalPages
+      currentPage
     }
   }
 `;
