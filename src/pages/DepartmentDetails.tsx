@@ -91,8 +91,16 @@ export default function DepartmentDetails() {
     }
   );
 
-  const [deleteSubDepartment] = useMutation(DELETE_SUB_DEPARTMENT, {
-    onCompleted: () => refetchSubDepartments(),
+  const [removeSubDepartment] = useMutation(DELETE_SUB_DEPARTMENT, {
+    onCompleted: () => {
+      refetchSubDepartments();
+      toast.success("Sub-department deleted successfully!");
+      window.location.reload();
+    },
+    onError: (error) => {
+      console.error("Error removing sub-department:", error);
+      toast.error(error.message);
+    },
   });
 
   if (loading)
@@ -177,16 +185,17 @@ export default function DepartmentDetails() {
 
   const handleDeleteSubDepartment = async (subDepartmentId: number) => {
     if (
-      window.confirm("Are you sure you want to delete this sub-department?")
+      window.confirm("Are you sure you want to remove this sub-department?")
     ) {
       try {
-        await deleteSubDepartment({
+        await removeSubDepartment({
           variables: { id: parseInt(subDepartmentId.toString(), 10) },
         });
-        toast.success("Sub-department deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting sub-department:", error);
-        toast.error("Failed to delete sub-department. Please try again.");
+      } catch (error: any) {
+        console.error("Error removing sub-department:", error);
+        toast.error(
+          error.message || "Failed to remove sub-department. Please try again."
+        );
       }
     }
   };

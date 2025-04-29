@@ -116,8 +116,8 @@ export const UPDATE_DEPARTMENT = gql`
 `;
 
 export const DELETE_DEPARTMENT = gql`
-  mutation DeleteDepartment($id: Int!) {
-    deleteDepartment(id: $id) {
+  mutation RemoveDepartment($id: Int!) {
+    removeDepartment(id: $id) {
       id
       name
     }
@@ -162,8 +162,8 @@ export const UPDATE_SUB_DEPARTMENT = gql`
 `;
 
 export const DELETE_SUB_DEPARTMENT = gql`
-  mutation DeleteSubDepartment($id: Int!) {
-    deleteSubDepartment(id: $id) {
+  mutation RemoveSubDepartment($id: Int!) {
+    removeSubDepartment(id: $id) {
       id
       name
     }

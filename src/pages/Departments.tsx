@@ -62,7 +62,8 @@ export default function Departments() {
   const [deleteDepartment] = useMutation(DELETE_DEPARTMENT, {
     onCompleted: () => {
       refetch();
-      toast.success("Department deleted successfully!");
+      toast.success("Department removed successfully!");
+      window.location.reload();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -100,13 +101,16 @@ export default function Departments() {
   };
 
   const handleDeleteDepartment = async (id: string | number) => {
-    if (window.confirm("Are you sure you want to delete this department?")) {
+    if (window.confirm("Are you sure you want to remove this department?")) {
       try {
         await deleteDepartment({
           variables: { id: parseInt(id.toString(), 10) },
         });
-      } catch (error) {
-        console.error("Error deleting department:", error);
+      } catch (error: any) {
+        console.error("Error removing department:", error);
+        toast.error(
+          error.message || "Failed to remove department. Please try again."
+        );
       }
     }
   };
